@@ -1,4 +1,4 @@
-﻿package com.health.ai.shared.exception;
+package com.health.ai.shared.exception;
 
 import lombok.Getter;
 

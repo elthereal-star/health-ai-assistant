@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <el-container class="app">
     <el-header>
       <h1>Health AI Assistant</h1>

@@ -1,4 +1,4 @@
-﻿INSERT INTO user (id, username, email, password_hash) VALUES (1, 'demo', 'demo@example.com', 'demo');
+INSERT INTO user (id, username, email, password_hash) VALUES (1, 'demo', 'demo@example.com', 'demo');
 
 INSERT INTO food_dict (code, name, calories_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g, default_unit, default_portion) VALUES
 ('beef_noodles', 'beef noodles', 550, 25, 65, 18, 'bowl', 500),

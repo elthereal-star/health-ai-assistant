@@ -1,4 +1,4 @@
-﻿---
+---
 Metadata:
   Title: Frontend Specification
   Version: 1.0.0

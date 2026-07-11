@@ -1,4 +1,4 @@
-﻿import { ref } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { createFoodRecord, listFoodRecords } from '../api/nutrition'
 import { createExerciseRecord, listExerciseRecords } from '../api/exercise'

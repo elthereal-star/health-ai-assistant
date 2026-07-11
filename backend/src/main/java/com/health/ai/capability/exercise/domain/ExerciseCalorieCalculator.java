@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.exercise.domain;
+package com.health.ai.capability.exercise.domain;
 
 import org.springframework.stereotype.Component;
 

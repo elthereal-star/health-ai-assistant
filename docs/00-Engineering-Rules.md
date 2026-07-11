@@ -1,4 +1,4 @@
-﻿---
+---
 Metadata:
   Title: Engineering Rules
   Version: 1.0.0

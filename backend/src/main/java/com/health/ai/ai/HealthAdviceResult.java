@@ -1,4 +1,4 @@
-﻿package com.health.ai.ai;
+package com.health.ai.ai;
 
 import lombok.Data;
 import java.util.List;

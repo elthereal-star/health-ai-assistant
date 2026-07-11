@@ -1,4 +1,4 @@
-﻿package com.health.ai.shared.exception;
+package com.health.ai.shared.exception;
 
 import com.health.ai.shared.Result;
 import lombok.extern.slf4j.Slf4j;

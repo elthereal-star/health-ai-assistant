@@ -1,4 +1,4 @@
-﻿---
+---
 Metadata:
   Title: Database Design
   Version: 1.0.0

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div>
     <h2>AI Health Assistant</h2>
     <el-input

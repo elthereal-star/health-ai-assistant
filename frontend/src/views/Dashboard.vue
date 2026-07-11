@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div>
     <h2>Dashboard</h2>
     <el-row :gutter="20">

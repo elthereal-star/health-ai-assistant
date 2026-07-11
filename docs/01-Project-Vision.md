@@ -1,4 +1,4 @@
-﻿---
+---
 Metadata:
   Title: Project Vision
   Version: 1.0.0

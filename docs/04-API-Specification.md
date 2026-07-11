@@ -1,4 +1,4 @@
-﻿---
+---
 Metadata:
   Title: API Specification
   Version: 1.0.0

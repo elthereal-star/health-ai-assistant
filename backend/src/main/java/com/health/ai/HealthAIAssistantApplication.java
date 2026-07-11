@@ -1,4 +1,4 @@
-﻿package com.health.ai;
+package com.health.ai;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

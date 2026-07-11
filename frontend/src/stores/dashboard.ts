@@ -1,4 +1,4 @@
-﻿import { ref } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getDashboard } from '../api/analytics'
 

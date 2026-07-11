@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.nutrition.application;
+package com.health.ai.capability.nutrition.application;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

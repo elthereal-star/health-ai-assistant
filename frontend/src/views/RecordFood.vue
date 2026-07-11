@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div>
     <h2>Record Food</h2>
     <el-form :model="form" label-width="120px">

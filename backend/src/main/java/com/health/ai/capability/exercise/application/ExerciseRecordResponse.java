@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.exercise.application;
+package com.health.ai.capability.exercise.application;
 
 import lombok.Data;
 

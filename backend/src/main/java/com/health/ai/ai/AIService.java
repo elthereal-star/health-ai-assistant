@@ -1,4 +1,4 @@
-﻿package com.health.ai.ai;
+package com.health.ai.ai;
 
 public interface AIService {
 

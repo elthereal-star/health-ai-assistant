@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.exercise.service;
+package com.health.ai.capability.exercise.service;
 
 import com.health.ai.capability.exercise.domain.ExerciseCalorieCalculator;
 import com.health.ai.capability.exercise.domain.ExerciseDictionary;

@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.nutrition.application;
+package com.health.ai.capability.nutrition.application;
 
 import com.health.ai.ai.AIService;
 import com.health.ai.ai.FoodRecognitionResult;

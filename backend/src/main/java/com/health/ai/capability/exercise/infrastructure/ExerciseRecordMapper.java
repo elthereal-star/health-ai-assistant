@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.exercise.infrastructure;
+package com.health.ai.capability.exercise.infrastructure;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.health.ai.capability.exercise.domain.ExerciseRecord;

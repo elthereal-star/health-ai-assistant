@@ -1,4 +1,4 @@
-﻿package com.health.ai.config;
+package com.health.ai.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

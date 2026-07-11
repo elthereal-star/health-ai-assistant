@@ -1,4 +1,4 @@
-﻿package com.health.ai.shared;
+package com.health.ai.shared;
 
 import lombok.Data;
 

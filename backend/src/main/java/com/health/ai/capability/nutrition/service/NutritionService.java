@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.nutrition.service;
+package com.health.ai.capability.nutrition.service;
 
 import com.health.ai.capability.nutrition.domain.FoodDictionary;
 import com.health.ai.capability.nutrition.domain.FoodRecord;

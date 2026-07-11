@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.exercise.application;
+package com.health.ai.capability.exercise.application;
 
 import com.health.ai.capability.exercise.domain.ExerciseRecord;
 import com.health.ai.capability.exercise.infrastructure.ExerciseRecordMapper;

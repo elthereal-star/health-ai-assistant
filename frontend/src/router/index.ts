@@ -1,4 +1,4 @@
-﻿import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import RecordFood from '../views/RecordFood.vue'
 import RecordExercise from '../views/RecordExercise.vue'

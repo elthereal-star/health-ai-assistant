@@ -1,4 +1,4 @@
-﻿---
+---
 Metadata:
   Title: System Specification
   Version: 1.0.0

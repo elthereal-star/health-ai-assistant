@@ -1,4 +1,4 @@
-﻿package com.health.ai.ai;
+package com.health.ai.ai;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-﻿package com.health.ai.ai;
+package com.health.ai.ai;
 
 import com.health.ai.shared.Result;
 import lombok.RequiredArgsConstructor;

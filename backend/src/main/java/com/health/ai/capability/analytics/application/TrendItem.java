@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.analytics.application;
+package com.health.ai.capability.analytics.application;
 
 import lombok.Data;
 

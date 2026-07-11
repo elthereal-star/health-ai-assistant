@@ -1,4 +1,4 @@
-﻿import request from './request'
+import request from './request'
 
 export const createFoodRecord = (data: any) => request.post('/nutrition/food-records', data)
 export const listFoodRecords = () => request.get('/nutrition/food-records')

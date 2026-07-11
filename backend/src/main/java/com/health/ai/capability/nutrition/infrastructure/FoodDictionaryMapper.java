@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.nutrition.infrastructure;
+package com.health.ai.capability.nutrition.infrastructure;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.health.ai.capability.nutrition.domain.FoodDictionary;

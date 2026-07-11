@@ -1,4 +1,4 @@
-﻿package com.health.ai.capability.nutrition.domain;
+package com.health.ai.capability.nutrition.domain;
 
 import org.junit.jupiter.api.Test;
 

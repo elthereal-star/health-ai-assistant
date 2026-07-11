@@ -1,4 +1,4 @@
-﻿---
+---
 Metadata:
   Title: Deployment
   Version: 1.0.0
