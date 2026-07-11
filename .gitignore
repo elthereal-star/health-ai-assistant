@@ -1,0 +1,47 @@
+﻿# Java / Maven
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+backend/*.log
+backend/*.jar
+backend/*.war
+
+# Node / Vue
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+frontend/*.log
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Docker volumes
+volumes/
+data/
+mysql-data/
+redis-data/
+minio-data/
+
+# Tests
+backend/test-output/
+frontend/test-results/
+
+.m2/
+
