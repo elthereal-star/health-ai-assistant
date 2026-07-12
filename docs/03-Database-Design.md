@@ -121,3 +121,10 @@ CREATE TABLE daily_summary (
 - All monetary or weight values use `DECIMAL` to avoid floating-point errors.
 - Calories and nutrition are calculated by the domain layer, not by AI.
 - `source` indicates how the record was created: TEXT, IMAGE, or MANUAL.
+
+
+## Implementation Notes
+
+- `daily_summary` is defined in the long-term schema but is **not implemented in the MVP**. Dashboard aggregates are computed directly from `food_record` and `exercise_record` by the Analytics capability.
+- All records are scoped by `user_id`.
+- Identity passwords are stored as BCrypt hashes.
