@@ -1,15 +1,16 @@
 package com.health.ai.capability.nutrition.application;
 
-import com.health.ai.ai.AIService;
+import com.health.ai.ai.AIFactory;
 import com.health.ai.ai.FoodRecognitionResult;
 import com.health.ai.capability.nutrition.domain.FoodRecord;
-import com.health.ai.capability.nutrition.infrastructure.FoodRecordMapper;
 import com.health.ai.capability.nutrition.service.NutritionService;
 import com.health.ai.shared.Result;
+import com.health.ai.shared.security.CurrentUser;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,14 +19,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class NutritionController {
 
-    private final FoodRecordMapper foodRecordMapper;
     private final NutritionService nutritionService;
-    private final AIService aiService;
+    private final AIFactory aiFactory;
 
     @PostMapping("/food-records")
     public Result<FoodRecordResponse> createFoodRecord(@Valid @RequestBody FoodRecordRequest request) {
         FoodRecord record = nutritionService.createFoodRecord(
-                1L,
+                CurrentUser.getId(),
                 request.getFoodName(),
                 request.getPortion(),
                 request.getUnit(),
@@ -35,8 +35,8 @@ public class NutritionController {
     }
 
     @GetMapping("/food-records")
-    public Result<List<FoodRecordResponse>> listFoodRecords(@RequestParam(required = false) String date) {
-        List<FoodRecord> records = foodRecordMapper.selectList(null);
+    public Result<List<FoodRecordResponse>> listFoodRecords(@RequestParam(required = false) LocalDate date) {
+        List<FoodRecord> records = nutritionService.listByUserId(CurrentUser.getId(), date);
         List<FoodRecordResponse> responses = records.stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
@@ -45,7 +45,7 @@ public class NutritionController {
 
     @PostMapping("/food-records/recognize")
     public Result<FoodRecognitionResponse> recognizeFood(@RequestBody FoodRecognitionRequest request) {
-        FoodRecognitionResult result = aiService.recognizeFood(request.getText(), request.getImageUrl());
+        FoodRecognitionResult result = aiFactory.getService().recognizeFood(request.getText(), request.getImageUrl());
         FoodRecognitionResponse response = new FoodRecognitionResponse();
         response.setFoodName(result.getFoodName());
         response.setSuggestedPortion(result.getSuggestedPortion());

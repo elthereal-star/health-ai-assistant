@@ -1,11 +1,10 @@
 # Health AI Assistant
 
-[![CI](https://github.com/{username}/health-ai-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/{username}/health-ai-assistant/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > An AI-Enhanced Personal Health Management Platform.
 
-Health AI Assistant is a **modular monolith** that helps users record diet and exercise through text and images, and generates sustainable health analytics and personalized advice.
+Health AI Assistant is a **modular monolith** that helps users record diet and exercise through text, and generates sustainable health analytics and personalized advice.
 
 **Core Principle:** AI is the Analyst, not the Calculator.
 
@@ -13,13 +12,13 @@ Health AI Assistant is a **modular monolith** that helps users record diet and e
 
 ```text
 Presentation (Vue 3 + TS)
-        ↓
+    ↓
 Application (REST API)
-        ↓
+    ↓
 Business Capability (Identity / Nutrition / Exercise / Analytics)
-        ↓
+    ↓
 Supporting Services (AI / OCR / Notification)
-        ↓
+    ↓
 Infrastructure (MySQL / Redis / MinIO)
 ```
 
@@ -32,33 +31,82 @@ Infrastructure (MySQL / Redis / MinIO)
 | Database | MySQL 8 + Redis 7 |
 | ORM | MyBatis-Plus |
 | Object Storage | MinIO |
-| AI | DeepSeek (OpenAI compatible) |
+| AI | DeepSeek (OpenAI compatible) + Local Mock fallback |
 | Build | Maven + GitHub Actions |
 | Deploy | Docker Compose |
 
 ## Quick Start
 
+### Option 1: Docker Compose (recommended)
+
+No local Java/Node required. The backend Dockerfile builds the JAR inside Docker, and the frontend Dockerfile builds the static bundle.
+
 ```bash
 # 1. Clone the repo
-git clone https://github.com/{username}/health-ai-assistant.git
+git clone https://github.com/elthereal-star/health-ai-assistant.git
 cd health-ai-assistant
 
-# 2. Configure AI service
-cp backend/src/main/resources/application.yml backend/src/main/resources/application-local.yml
-# Edit application-local.yml and set your DeepSeek API key
+# 2. Optional: set AI key to use real DeepSeek instead of local Mock
+#    If you skip this, the system runs fully offline with the Mock AI.
+# export AI_API_KEY=sk-xxx
 
-# 3. Start infrastructure
+# 3. One-click start
+docker compose up --build -d
+
+# 4. Open the app
+# http://localhost:3000
+# Register a new account, then log in to see the dashboard.
+```
+
+This starts:
+- MySQL on 3306
+- Redis on 6379
+- MinIO on 9000 / 9001
+- Backend on 8080
+- Frontend on 3000
+
+### Option 2: Local Development
+
+**Prerequisites**
+- Java 21
+- Maven 3.9+
+- Node.js 20+
+- MySQL 8
+- Redis 7
+
+```bash
+# 1. Start infrastructure
 docker compose up -d mysql redis minio
 
-# 4. Start backend
+# 2. Start backend (uses Mock AI by default)
 cd backend
-./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+mvn spring-boot:run -Dspring-boot.run.profiles=local
 
-# 5. Start frontend
+# 3. Start frontend
 cd ../frontend
 npm install
 npm run dev
+# Open http://localhost:3000
 ```
+
+The backend `application-local.yml` defaults to Mock AI. To switch to DeepSeek, set the `AI_API_KEY` environment variable or add it to `application-local.yml`:
+
+```yaml
+ai:
+  api-key: sk-xxx
+```
+
+## Authentication
+
+All protected endpoints require a `Bearer` token in the `Authorization` header. The token is obtained from `POST /api/identity/login` or `POST /api/identity/register`.
+
+The frontend stores the token in `localStorage` and injects it automatically via Axios interceptors.
+
+## AI Strategy
+
+- By default, `MockAIService` runs locally with no API key. It uses the built-in food/exercise dictionaries to recognize common Chinese and Western foods and give rule-based health advice.
+- When `AI_API_KEY` is set, the system automatically switches to `DeepSeekAIService`.
+- AI never touches the database, calculates calories, or changes business rules.
 
 ## Documentation
 

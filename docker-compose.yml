@@ -48,7 +48,14 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/health_ai
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
       SPRING_REDIS_HOST: redis
+      SPRING_SQL_INIT_MODE: always
+      JWT_SECRET: ${JWT_SECRET:-health-ai-assistant-docker-secret}
+      AI_API_KEY: ${AI_API_KEY:-}
+      AI_API_BASE_URL: ${AI_API_BASE_URL:-https://api.deepseek.com}
+      AI_MODEL: ${AI_MODEL:-deepseek-chat}
       MINIO_ENDPOINT: http://minio:9000
     depends_on:
       mysql:
@@ -56,6 +63,17 @@ services:
       redis:
         condition: service_started
       minio:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: health-ai-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
         condition: service_started
 
 volumes:

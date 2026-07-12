@@ -5,10 +5,13 @@ import com.health.ai.capability.exercise.domain.ExerciseDictionary;
 import com.health.ai.capability.exercise.domain.ExerciseRecord;
 import com.health.ai.capability.exercise.infrastructure.ExerciseDictionaryMapper;
 import com.health.ai.capability.exercise.infrastructure.ExerciseRecordMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +37,14 @@ public class ExerciseService {
 
         exerciseRecordMapper.insert(record);
         return record;
+    }
+    public List<ExerciseRecord> listByUserId(Long userId, LocalDate date) {
+        var wrapper = Wrappers.<ExerciseRecord>lambdaQuery()
+                .eq(ExerciseRecord::getUserId, userId);
+        if (date != null) {
+            wrapper.between(ExerciseRecord::getRecordedAt, date.atStartOfDay(), date.plusDays(1).atStartOfDay());
+        }
+        wrapper.orderByDesc(ExerciseRecord::getRecordedAt);
+        return exerciseRecordMapper.selectList(wrapper);
     }
 }

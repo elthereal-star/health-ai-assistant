@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AIController {
 
-    private final AIService aiService;
+    private final AIFactory aiFactory;
 
     @PostMapping("/health-advice")
     public Result<HealthAdviceResult> healthAdvice(@RequestBody HealthAdviceRequest request) {
-        return Result.ok(aiService.generateHealthAdvice(request.getContext()));
+        return Result.ok(aiFactory.getService().generateHealthAdvice(request.getContext()));
     }
 }

@@ -1,9 +1,9 @@
 ---
 Metadata:
   Title: API Specification
-  Version: 1.0.0
+  Version: 1.1.0
   Author: Health AI Assistant Team
-  Last Updated: 2026-07-11
+  Last Updated: 2026-07-12
 Purpose:
   Define all REST API contracts, endpoints, and response formats.
 Scope:
@@ -11,6 +11,7 @@ Scope:
 Review Cycle:
   Per feature iteration.
 Change Log:
+  - 2026-07-12 v1.1.0: Add Identity endpoints and authentication
   - 2026-07-11 v1.0.0: Initial release
 AI Context:
   - Generate controllers and DTOs based on these contracts.
@@ -44,9 +45,73 @@ All responses use the same envelope:
 | 0 | Success |
 | 40001 | Bad request / validation error |
 | 40002 | AI service unavailable |
+| 40101 | Unauthorized / invalid token |
 | 50001 | Internal server error |
 
+## Authentication
+
+All endpoints except `POST /identity/register` and `POST /identity/login` require a `Bearer` token in the `Authorization` header:
+
+```http
+Authorization: Bearer <token>
+```
+
+The token is returned after registration or login. The default expiration time is 24 hours.
+
 ## Endpoints
+
+### Identity
+
+#### POST /identity/register
+
+Register a new user.
+
+**Request:**
+```json
+{
+  "username": "alice",
+  "email": "alice@example.com",
+  "password": "123456"
+}
+```
+
+**Response:**
+```json
+{
+  "code": 0,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIs...",
+    "tokenType": "Bearer",
+    "userId": 1,
+    "username": "alice"
+  }
+}
+```
+
+#### POST /identity/login
+
+Log in with username and password.
+
+**Request:**
+```json
+{
+  "username": "alice",
+  "password": "123456"
+}
+```
+
+**Response:**
+```json
+{
+  "code": 0,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIs...",
+    "tokenType": "Bearer",
+    "userId": 1,
+    "username": "alice"
+  }
+}
+```
 
 ### Diet
 
@@ -82,7 +147,7 @@ Create a food record.
 
 #### GET /nutrition/food-records?date=2026-07-11
 
-List food records for a user on a given date.
+List food records for the current user on a given date. If `date` is omitted, all records for the user are returned.
 
 #### POST /nutrition/food-records/recognize
 
@@ -103,7 +168,8 @@ Recognize food from text or image.
   "data": {
     "foodName": "beef noodles",
     "suggestedPortion": 1,
-    "suggestedUnit": "bowl"
+    "suggestedUnit": "bowl",
+    "confidence": 0.95
   }
 }
 ```
@@ -137,11 +203,15 @@ Create an exercise record.
 }
 ```
 
+#### GET /exercise/exercise-records?date=2026-07-11
+
+List exercise records for the current user on a given date.
+
 ### Dashboard
 
 #### GET /analytics/dashboard
 
-Get today's dashboard data.
+Get today's dashboard data for the current user.
 
 **Response:**
 ```json
@@ -181,7 +251,8 @@ Get health advice based on recent records.
 {
   "code": 0,
   "data": {
-    "advice": "Your protein intake is good today. Consider adding more vegetables."
+    "advice": "Your protein intake is good today. Consider adding more vegetables.",
+    "suggestedActions": ["add vegetables", "drink more water"]
   }
 }
 ```

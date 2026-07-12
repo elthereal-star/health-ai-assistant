@@ -5,11 +5,14 @@ import com.health.ai.capability.nutrition.domain.FoodRecord;
 import com.health.ai.capability.nutrition.domain.NutritionCalculator;
 import com.health.ai.capability.nutrition.infrastructure.FoodDictionaryMapper;
 import com.health.ai.capability.nutrition.infrastructure.FoodRecordMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +55,14 @@ public class NutritionService {
             return food.getDefaultPortion().multiply(portion);
         }
         return portion.multiply(new BigDecimal("100"));
+    }
+    public List<FoodRecord> listByUserId(Long userId, LocalDate date) {
+        var wrapper = Wrappers.<FoodRecord>lambdaQuery()
+                .eq(FoodRecord::getUserId, userId);
+        if (date != null) {
+            wrapper.between(FoodRecord::getRecordedAt, date.atStartOfDay(), date.plusDays(1).atStartOfDay());
+        }
+        wrapper.orderByDesc(FoodRecord::getRecordedAt);
+        return foodRecordMapper.selectList(wrapper);
     }
 }

@@ -1,13 +1,14 @@
 package com.health.ai.capability.exercise.application;
 
 import com.health.ai.capability.exercise.domain.ExerciseRecord;
-import com.health.ai.capability.exercise.infrastructure.ExerciseRecordMapper;
 import com.health.ai.capability.exercise.service.ExerciseService;
 import com.health.ai.shared.Result;
+import com.health.ai.shared.security.CurrentUser;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,13 +17,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ExerciseController {
 
-    private final ExerciseRecordMapper exerciseRecordMapper;
     private final ExerciseService exerciseService;
 
     @PostMapping("/exercise-records")
     public Result<ExerciseRecordResponse> createExerciseRecord(@Valid @RequestBody ExerciseRecordRequest request) {
         ExerciseRecord record = exerciseService.createExerciseRecord(
-                1L,
+                CurrentUser.getId(),
                 request.getExerciseType(),
                 request.getDurationMinutes(),
                 request.getRecordedAt()
@@ -31,8 +31,8 @@ public class ExerciseController {
     }
 
     @GetMapping("/exercise-records")
-    public Result<List<ExerciseRecordResponse>> listExerciseRecords() {
-        List<ExerciseRecord> records = exerciseRecordMapper.selectList(null);
+    public Result<List<ExerciseRecordResponse>> listExerciseRecords(@RequestParam(required = false) LocalDate date) {
+        List<ExerciseRecord> records = exerciseService.listByUserId(CurrentUser.getId(), date);
         return Result.ok(records.stream().map(this::toResponse).collect(Collectors.toList()));
     }
 
