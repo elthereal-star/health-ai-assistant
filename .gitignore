@@ -45,3 +45,5 @@ frontend/test-results/
 
 .m2/
 
+
+*.log

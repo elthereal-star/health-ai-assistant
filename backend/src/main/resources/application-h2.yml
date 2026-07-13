@@ -1,0 +1,26 @@
+spring:
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-h2.sql
+      data-locations: classpath:data-h2.sql
+  datasource:
+    url: jdbc:h2:mem:health_ai;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;NON_KEYWORDS=USER
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  h2:
+    console:
+      enabled: false
+
+jwt:
+  secret: ${JWT_SECRET:health-ai-assistant-h2-secret-key}
+  expiration: 86400000
+
+ai:
+  api-key: ${AI_API_KEY:}
+  enabled: true

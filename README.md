@@ -1,4 +1,4 @@
-# Health AI Assistant
+﻿# Health AI Assistant
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -35,7 +35,83 @@ Infrastructure (MySQL / Redis / MinIO)
 | Build | Maven + GitHub Actions |
 | Deploy | Docker Compose |
 
-## Quick Start
+## Quick Start (H2 / No Docker)
+
+For local development without Docker, WSL, MySQL, or Redis:
+
+### 1. Prerequisites
+- Java 21 (Eclipse Temurin recommended)
+- Maven 3.9+
+- Node.js 18+
+
+### 2. Build the Backend
+```bash
+cd backend
+mvn clean package -DskipTests
+```
+
+### 3. Start the Backend
+```bash
+cd backend
+java -jar target/health-ai-assistant-0.0.1-SNAPSHOT.jar --spring.profiles.active=local,h2
+```
+The backend will start on `http://localhost:8080/api` using an in-memory H2 database.
+
+### 4. Start the Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+The frontend dev server will start on `http://localhost:3000` and proxy `/api` to the backend.
+
+### 5. Try the App
+Open `http://localhost:3000`, register a new account, then record food, exercise, and view the dashboard.
+
+> The H2 profile uses Mock AI by default. To use DeepSeek, set `AI_API_KEY` in your environment or configure `application-local.yml`. The H2 database is in-memory, so data is reset when the backend stops.
+
+## Quick Start (MySQL + Nginx)
+
+For production-like deployment with your existing MySQL and Nginx (no Docker needed):
+
+### 1. Prerequisites
+- Java 21 (Eclipse Temurin recommended)
+- Maven 3.9+
+- Node.js 18+
+- MySQL 8 running on localhost:3306
+- Nginx installed
+
+### 2. Create Database
+\\sql
+CREATE DATABASE IF NOT EXISTS health_ai CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+\
+### 3. Build
+\\ash
+cd backend
+mvn clean package -DskipTests
+
+cd ../frontend
+npm install
+npm run build
+\
+### 4. Start Backend
+\\ash
+cd backend
+java -jar target/health-ai-assistant-0.0.1-SNAPSHOT.jar --spring.profiles.active=local
+\The backend starts on http://localhost:8080/api (context path /api).
+
+### 5. Configure Nginx
+Edit the included ginx.conf\ to match your paths, then:
+\\ash
+nginx -c D:/项目/nginx.conf
+\
+### 6. Open the App
+Visit http://localhost, register a new account, then record food, exercise, and view the dashboard.
+
+> The local profile uses Mock AI by default (no API key needed). To use DeepSeek, set AI_API_KEY environment variable.
+
+
+## Docker Quick Start
 
 ### Option 1: Docker Compose (recommended)
 
