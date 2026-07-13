@@ -100,11 +100,12 @@ cd backend
 java -jar target/health-ai-assistant-0.0.1-SNAPSHOT.jar --spring.profiles.active=local
 \The backend starts on http://localhost:8080/api (context path /api).
 
-### 5. Configure Nginx
-Edit the included ginx.conf\ to match your paths, then:
-\\ash
-nginx -c D:/项目/nginx.conf
-\
+### 5. Start Nginx (Reverse Proxy)
+Double-click \start-nginx.bat\ in the project root, or run:
+\\atch
+D:\项目\start-nginx.bat
+\This will stop any old nginx and restart it with the correct config.
+
 ### 6. Open the App
 Visit http://localhost, register a new account, then record food, exercise, and view the dashboard.
 
